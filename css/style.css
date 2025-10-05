@@ -1325,3 +1325,9 @@ strong {
 	  font-size: 14px;
 	}
   }
+
+/* === Force light background === */
+html, body {
+  background-color: white !important;
+  color: black !important;
+}
