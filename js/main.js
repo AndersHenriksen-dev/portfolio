@@ -85,6 +85,9 @@
 
   var clickMenu = function () {
     $('#navbar a:not([class="external"])').click(function (event) {
+      // If the link has .no-scroll, let it behave normally
+      if ($(this).hasClass('no-scroll')) return;
+
       var section = $(this).data("nav-section"),
         navbar = $("#navbar");
 
@@ -107,6 +110,7 @@
       return false;
     });
   };
+
 
   var navActive = function (section) {
     var $el = $("#navbar > ul");
