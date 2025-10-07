@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Overview</title>
+    <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Blog post by Anders Henriksen" />
 
@@ -63,24 +63,15 @@
         <div class="colorlib-narrow-content">
           <div class="row animate-box" data-animate-effect="fadeInLeft">
             <div class="about-desc">
-              <h1>Overview</h1>
-              <p class="publish-date"><em>2025-10-07</em></p>
+              <h1>{{ title }}</h1>
+              <p class="publish-date"><em>{{ date }}</em></p>
               <hr />
             </div>
           </div>
 
           <div class="row animate-box" data-animate-effect="fadeInUp">
             <article id="blog-content">
-              <h2>```markdown</h2>
-<p>title: "Cool Machine Learning Project"
-author: "Anders Henriksen"
-date: 2025-10-07
-format: html</p>
-<hr />
-<h1>Overview</h1>
-<p>This project uses a neural network to classify images of cats and dogs.</p>
-<h2>Results</h2>
-<p>The model achieves 95% accuracy.</p>
+              {{ content | safe }}
             </article>
           </div>
         </div>
