@@ -107,6 +107,7 @@ figure figcaption {
 }
 
 #colorlib-aside {
+  height: 100vh;
   padding-top: 3em;
   padding-bottom: 1px;
   float: left;
