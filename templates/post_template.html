@@ -44,6 +44,13 @@
   <body>
     <div id="navbar-container"></div>
     <script>
+      // Compute path to navbar.html based on current URL
+      const depth = window.location.pathname.split('/').length - 2; 
+      // -2 because pathname starts with "/" and last part is file name
+      let navbarPath = '';
+      for (let i = 0; i < depth; i++) navbarPath += '../';
+      navbarPath += 'navbar.html';
+
       // ✅ Reuse your existing navbar loader
       fetch("/navbar.html")
         .then((response) => response.text())
