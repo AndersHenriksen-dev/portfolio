@@ -39,7 +39,7 @@
     <div id="navbar-container"></div>
     <script>
       // Load navbar.html into #navbar-container
-      fetch('portfolio/navbar.html')
+      fetch('/navbar.html')
         .then(response => response.text())
         .then(html => {
           document.getElementById('navbar-container').innerHTML = html;

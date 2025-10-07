@@ -151,7 +151,7 @@ const data ={
         },
         {
           "text": "Github",
-          "link": "https://andershenriksen-dev.github.io/portfolio/"
+          "link": "https://andershenriksen-dev.github.io/"
         }
       ]
     },
