@@ -46,7 +46,7 @@
       navbarPath += 'navbar.html';
 
       // Load navbar.html into #navbar-container
-      fetch('/navbar.html')
+      fetch('portfolio/navbar.html')
         .then(response => response.text())
         .then(html => {
           document.getElementById('navbar-container').innerHTML = html;
