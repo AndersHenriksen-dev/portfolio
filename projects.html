@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Anders Henriksen's portfolio webpage" />
+    <meta
+      name="keywords"
+      content="portfolio,website,personal website,github,projects,computer science and engineering"
+    />
+    <meta name="author" content="Vinay Somawat" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="icon" type="image/png" href="./logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Raleway&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    />
+
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="js/profile-card.js"></script>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <script>
+      // Load navbar.html into #navbar-container
+      fetch('/navbar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+          // Re-initialize your main.js scripts if needed
+          if (typeof clickMenu === 'function') clickMenu();
+          if (typeof burgerMenu === 'function') burgerMenu();
+          if (typeof mobileMenuOutsideClick === 'function') mobileMenuOutsideClick();
+        });
+    </script>
+        <div id="colorlib-main">
+          <section class="colorlib-projects">
+            <div class="colorlib-narrow-content">
+              <div class="row animate-box" data-animate-effect="fadeInLeft">
+                <div class="about-desc">
+                  <h1>My <span style="color: #f9bf3f">Projects</span></h1>
+                  <p>Here’s a collection of projects I’ve built — from data science experiments to web tools.</p>
+                </div>
+              </div>
+              <div id="project-list" class="row"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/main.js"></script>
+
+    
+    
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+      
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyBM5-cQema1PzjpTPtCxIdmvTrWH2p1nc8",
+        authDomain: "vinaysomawat-portfolio.firebaseapp.com",
+        projectId: "vinaysomawat-portfolio",
+        storageBucket: "vinaysomawat-portfolio.firebasestorage.app",
+        messagingSenderId: "996992279996",
+        appId: "1:996992279996:web:f296555eef216d501337b9",
+        measurementId: "G-8PVX0MLGSK",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        setDoc,
+        updateDoc,
+      } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+      // Initialize Firestore
+      const db = getFirestore(app);
+
+      // Reference to the visitor count document
+      const counterRef = doc(db, "visitors", "counter");
+      
+      // Function to update visitor count
+      async function updateVisitorCount() {
+        try {
+          const docSnap = await getDoc(counterRef);
+          
+          if (docSnap.exists()) {
+            let newCount = docSnap.data().count + 1;
+            await updateDoc(counterRef, { count: newCount });
+            document.getElementById("visitorCount").innerText = newCount;
+          } else {
+            await setDoc(counterRef, { count: 1 });
+            document.getElementById("visitorCount").innerText =
+              "Visitor Count: 1";
+          }
+        } catch (error) {
+          console.error("Error updating visitor count:", error);
+        }
+      }
+
+      // Call function on page load
+      updateVisitorCount();
+    </script>
+    <script>
+      const projects = [
+        { title: "Machine Learning Project", link: "projects/project1.html" },
+        { title: "Web Dashboard", link: "projects/project2.html" },
+      ];
+    
+      const container = document.getElementById("project-list");
+      projects.forEach(project => {
+        const div = document.createElement("div");
+        div.className = "col-md-12 animate-box";
+        div.innerHTML = `
+          <div class="project-card">
+            <h3><a href="${project.link}">${project.title}</a></h3>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    </script>
+  </body>
+</html>

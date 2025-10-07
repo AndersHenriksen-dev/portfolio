@@ -1,0 +1,15 @@
+---
+title: "My First Blog Post"
+author: "Anders Henriksen"
+date: 2025-10-07
+format: html
+---
+
+# Introduction
+
+This is my first blog post written in **Quarto**.
+
+Here’s some code:
+
+```python
+print("Hello, world!")

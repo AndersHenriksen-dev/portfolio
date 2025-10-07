@@ -1,0 +1,15 @@
+```markdown
+---
+title: "Cool Machine Learning Project"
+author: "Anders Henriksen"
+date: 2025-10-07
+format: html
+---
+
+# Overview
+
+This project uses a neural network to classify images of cats and dogs.
+
+## Results
+
+The model achieves 95% accuracy.

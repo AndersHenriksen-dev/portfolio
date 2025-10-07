@@ -34,3 +34,13 @@ Desktop.ini
 # Build / output folders (if you use a bundler later)
 dist/
 build/
+
+blogs/_site/site_libs/
+blogs/index_files/
+blogs/blog1_files/
+blogs/post1_files/
+blogs/about_files/
+projects/_site/site_libs/
+projects/index_files/
+projects/project1_files/
+projects/about_files/

@@ -1,22 +1,10 @@
 project:
-  type: website
+  type: default
   output-dir: .
-
-website:
-  title: "blogs"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
-    css: styles.css
+    theme: none
+    css: ../../css/main.css
     toc: true
-
-
-
+    page-layout: full
