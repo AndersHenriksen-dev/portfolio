@@ -194,3 +194,28 @@ function detectDayNightMode() {
     enableDarkMode();
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Get current filename from the URL
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+  // Select only top-level nav links (the main ones)
+  const mainLinks = document.querySelectorAll(
+    '#colorlib-main-menu > div ul > li > a.no-scroll'
+  );
+
+  mainLinks.forEach(link => {
+    const href = link.getAttribute("href");
+
+    // Remove any previous 'active' highlight
+    link.classList.remove("active");
+
+    // Highlight based on current page
+    if (
+      (currentPage === "" && href.endsWith("index.html")) || // root case
+      href.endsWith(currentPage)
+    ) {
+      link.classList.add("active");
+    }
+  });
+});
