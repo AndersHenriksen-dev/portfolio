@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>A Practical Git Command Reference</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Blog post by Anders Henriksen" />
+
+    <!-- Fonts & Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="./logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Raleway&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="../css/animate.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    />
+
+    <!-- Highlight.js for code blocks -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <script src="../js/modernizr-2.6.2.min.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="js/profile-card.js"></script>
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+    <script>
+      // ✅ Reuse your existing navbar loader
+      fetch("/navbar.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("navbar-container").innerHTML = html;
+
+          // Re-init JS
+          if (typeof clickMenu === "function") clickMenu();
+          if (typeof burgerMenu === "function") burgerMenu();
+          if (typeof mobileMenuOutsideClick === "function")
+            mobileMenuOutsideClick();
+        });
+    </script>
+
+    <div id="colorlib-main">
+      <section class="colorlib-blog-post">
+        <div class="colorlib-narrow-content">
+          <div class="row animate-box" data-animate-effect="fadeInLeft">
+            <div class="about-desc">
+              <h1>A Practical Git Command Reference</h1>
+              <p class="publish-date"><em>2025-10-09</em></p>
+              <hr />
+            </div>
+          </div>
+
+          <div class="row animate-box" data-animate-effect="fadeInUp">
+            <article id="blog-content">
+              <hr />
+<p>title: "A Practical Git Command Reference"
+author: "Anders Henriksen"
+date: 2025-10-09
+format: html</p>
+<hr />
+<h1>A Practical Git Command Reference</h1>
+<h2>Motivation</h2>
+<p>Like many other skills in programming, truly understanding git requires messing up (intentionally or otherwise) and learning how to fix it. Even so, it can be useful to have a list of commands to reference every once in a while such that unknown commands can be added to ones' toolbelt. This is exactly the purpose of this blog.</p>
+<h2>The Foundation</h2>
+<p>These commands are used every time a new git repository is used and often multiple times per day.</p>
+<p>Remember not to rebase public/shared branches because it rewrites history and makes you do <code>git push --force-with-lease</code> after the rebase.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">What it Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git config --global user.name</code></td>
+<td style="text-align: left;">Set your git username.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git config --global user.email</code></td>
+<td style="text-align: left;">Set your git email address.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git init</code></td>
+<td style="text-align: left;">Create a new local repository.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git clone &lt;url&gt;</code></td>
+<td style="text-align: left;">Copy a remote repository to your computer.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git status</code></td>
+<td style="text-align: left;">Show changes (staged, unstaged, untracked).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git status -s</code></td>
+<td style="text-align: left;">Show changes in a shorter format.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git add .</code></td>
+<td style="text-align: left;">Add all files to the staging area.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git add -p</code></td>
+<td style="text-align: left;">Interactive staging of hunks (parts of files).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git add &lt;file&gt;</code></td>
+<td style="text-align: left;">Stage file changes for commit.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git commit -m "message"</code></td>
+<td style="text-align: left;">Record a snapshot of staged changes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git fetch</code></td>
+<td style="text-align: left;">Download the changes from the remote server without adding them anywhere.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git pull</code></td>
+<td style="text-align: left;">Fetch + merge remote changes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git pull --rebase</code></td>
+<td style="text-align: left;">Fetch + rebase instead of merge (cleaner).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git push</code></td>
+<td style="text-align: left;">Upload commits to remote.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git push --force-with-lease</code></td>
+<td style="text-align: left;">Safely rewrite remote branch (after rebase).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git log</code></td>
+<td style="text-align: left;">View commit history.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git log --stat</code></td>
+<td style="text-align: left;">View commit history with number of changes per file.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git log -p</code></td>
+<td style="text-align: left;">View commit history in combination with diff.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git diff</code></td>
+<td style="text-align: left;">Compare working directory and index or commits.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git restore &lt;file&gt;</code></td>
+<td style="text-align: left;">Modern alternative to checkout for files.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git restore --staged &lt;file&gt;</code></td>
+<td style="text-align: left;">Unstage a previously staged file.</td>
+</tr>
+</tbody>
+</table>
+<h2>Branching and Merging</h2>
+<p>At the core of development teamwork is feature branches. Managing these branches requires many of the commands below, often a couple of times per week depending on the amount of features each developer is responsible for at the same time.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">What it Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git branch</code></td>
+<td style="text-align: left;">List local branches.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git branch -a</code></td>
+<td style="text-align: left;">List all branches, local and remote.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git branch &lt;name&gt;</code></td>
+<td style="text-align: left;">Create a new branch.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git switch &lt;branch&gt;</code></td>
+<td style="text-align: left;">Switch branches.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git merge &lt;branch&gt;</code></td>
+<td style="text-align: left;">Merge another branch into the current one.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git log --oneline --graph --decorate --all</code></td>
+<td style="text-align: left;">Visualize branch structure.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git merge --abort</code></td>
+<td style="text-align: left;">Cancel a merge in progress.</td>
+</tr>
+</tbody>
+</table>
+<h2>Rebase, Cherry-pick, and History Editing</h2>
+<p>Inevitably, some branches end up too large, small bug-fixes are fixed on the wrong branches or too many messy checkpoint commits are created to make pulling possible or get started on new work. This leads to a non-transparent commit history, making each change unclear to developers and yourself in the future. When you catch these errors, the below commands are useful to clean and manipulate the commit history.</p>
+<p>Depending on how strict your team is about keeping the commit history clean, these commands can be used about once a week.
+Remember not to rebase public/shared branches because it rewrites history and makes you do <code>git push --force-with-lease</code> after the rebase.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">What it Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git rebase &lt;branch&gt;</code></td>
+<td style="text-align: left;">Replay commits from your branch on top of another.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rebase -i HEAD~N</code></td>
+<td style="text-align: left;">Interactive rebase: reorder, squash and edit the last N commits.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git cherry-pick &lt;hash&gt;</code></td>
+<td style="text-align: left;">Move a specific commit from elsewhere to your current location.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git commit --amend</code></td>
+<td style="text-align: left;">Modify the last commit.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git reset --soft &lt;hash&gt;</code></td>
+<td style="text-align: left;">Move HEAD but keep changes staged.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git reset --mixed &lt;hash&gt;</code></td>
+<td style="text-align: left;">Move HEAD and unstage changes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git reset --hard &lt;hash&gt;</code></td>
+<td style="text-align: left;">Reset everything to a previous commit and remove the changes.</td>
+</tr>
+</tbody>
+</table>
+<p>The last three commands also work using the HEAD~N syntax.</p>
+<p><code>git reset --hard</code> is dangerous and should not be used unless you are absolutely sure that you no longer need the commit in question. Please only use this  command if you are confident that you know how to use the reflog to get your commit back in case of errors.</p>
+<hr />
+<h2>Recovery, Reflog, and Time Travel</h2>
+<p>If you are great at using git and never make mistakes, these commands will never come in handy. Because everyone stumbles sometimes, knowing how to get your lost work back comes in handy fast.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">What it Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git reflog</code></td>
+<td style="text-align: left;">Show all HEAD movements (your time machine).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git log -g</code></td>
+<td style="text-align: left;">View reflog as a commit log.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git checkout &lt;commit&gt;</code></td>
+<td style="text-align: left;">Inspect an old snapshot.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git branch &lt;name&gt; &lt;commit&gt;</code></td>
+<td style="text-align: left;">Create a branch from a lost commit.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git revert &lt;commit&gt;</code></td>
+<td style="text-align: left;">Create a new commit that undoes a previous one.</td>
+</tr>
+</tbody>
+</table>
+<p>The contents of the reflog and its usefulness is a complicated topic and will not be dismantled in this blog.
+If you wish to learn more about the internals that make reflog a useful tool, read chapter 10 of the Pro Git book. It can be read for free from here: <a href="https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain">Git Internals - Plumbing and Porcelain</a>.</p>
+<h2>Stashing, Tagging, and Ignoring</h2>
+<p>Save, mark, and organize work efficiently. I personally find myself getting a lot of use out of stash, especially in messy codebases where the lines between commits, branches and temporary work that might come in handy later are super blurry.</p>
+<p>A stash is a last in, first out stack. Like stacking plates, the most recently added commit is put on the top and is the first to be picked up when removing a value from the stack.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">What it Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git stash -m"message"</code></td>
+<td style="text-align: left;">Temporarily save uncommitted changes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git stash -u -m"message"</code></td>
+<td style="text-align: left;">Temporarily save uncommitted changes (including untracked files).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git stash pop</code></td>
+<td style="text-align: left;">Get the changes in the most recent stash and remove the entry.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git stash apply</code></td>
+<td style="text-align: left;">Get the changes in the most recent stash and keep the entry.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git stash list</code></td>
+<td style="text-align: left;">Show all stashes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git tag &lt;name&gt;</code></td>
+<td style="text-align: left;">Create a lightweight tag (like version v1.0).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git tag -a &lt;name&gt; -m "msg"</code></td>
+<td style="text-align: left;">Annotated tag with message.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git push origin --tags</code></td>
+<td style="text-align: left;">Push tags to remote.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rm --cached &lt;file&gt;</code></td>
+<td style="text-align: left;">Stop tracking a file on git.</td>
+</tr>
+</tbody>
+</table>
+<h2>Inspection, Debugging, and Advanced Diffing</h2>
+<p>These commands are added for completeness. They can be useful to get an overview of a project or changes made in specific commits, but vscode and other editors handle this info without the needs for the command themselves. Except for <code>git bisect</code> and potentially <code>git grep</code> You will probably not use these often.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">What it Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git bisect start</code></td>
+<td style="text-align: left;">Binary search to find the commit that introduced a bug.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git bisect good</code></td>
+<td style="text-align: left;">Mark a commit in the binary search as not having the bug.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git bisect bad</code></td>
+<td style="text-align: left;">Mark a commit in the binary search as having the bug.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git grep &lt;pattern&gt;</code></td>
+<td style="text-align: left;">Search for text in tracked files.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git blame &lt;file&gt;</code></td>
+<td style="text-align: left;">Show who last changed each line.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git show &lt;commit&gt;</code></td>
+<td style="text-align: left;">Display info and diff for a commit.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git diff &lt;commit1&gt; &lt;commit2&gt;</code></td>
+<td style="text-align: left;">Compare two commits.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git shortlog -sn</code></td>
+<td style="text-align: left;">Show commit counts by author.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git shortlog --author="Author Name"</code></td>
+<td style="text-align: left;">Show all messages from a certain author.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rev-parse HEAD</code></td>
+<td style="text-align: left;">Get current commit hash.</td>
+</tr>
+</tbody>
+</table>
+<h2>GUI Equivalents</h2>
+<p>If you use vscode, consider installing the <a href="https://marketplace.visualstudio.com/items?itemName=waderyan.gitblame">Git Blame Extension</a> to show the inline git blame info. This replaces the <code>git blame &lt;file&gt;</code> command and even shows line-by-line changes.
+Using the Timeline drop-down at the bottom of the explorer window, you can compare multiple commits of a file to each other akin to the <code>git diff &lt;commit1&gt; &lt;commit2&gt;</code>.
+While I do love the <code>git grep &lt;pattern&gt;</code> command, it fulfills almost the exact same need as the <code>ctrl+shift+f</code> search tool in vscode (if most of the files in your project are tracked by git).</p>
+<!-- # Plumbing Commands (Internal Git Power)
+Understand Git’s internals and low-level structure. Like the above section, you can likely go a full data science career without ever hearing of or using the se commands.
+
+
+
+| Command | What it Does |
+|:---------|:--------------|
+| `git cat-file -p <hash>` | Show content of a Git object. |
+| `git rev-list <branch>` | Show all commit hashes in a branch. |
+| `git ls-tree HEAD` | List files in a tree object (a commit). |
+| `git hash-object <file>` | Compute SHA-1 for an object. |
+| `git update-ref refs/heads/<branch> <hash>` | Manually move branch pointer. |
+| `git fsck --full` | Verify repo integrity. | -->
+
+<h2>Git Wizardry</h2>
+<p>Total mastery for rewriting, filtering, optimizing, scripting.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">What it Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git filter-repo --path secrets.txt --invert-paths</code></td>
+<td style="text-align: left;">Rewrite entire repo history (e.g., remove secrets).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git worktree add &lt;dir&gt; &lt;branch&gt;</code></td>
+<td style="text-align: left;">Make it possible to open each branch in a separate window.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git submodule add &lt;url&gt; &lt;path&gt;</code></td>
+<td style="text-align: left;">Include another repo inside yours.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git subtree</code></td>
+<td style="text-align: left;">Merge and split subprojects.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git config --global alias.&lt;name&gt; "&lt;cmd&gt;"</code></td>
+<td style="text-align: left;">Create custom Git shortcuts.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rerere</code></td>
+<td style="text-align: left;">Remember merge conflict resolutions so you can use them again.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git notes add -m "info" &lt;commit&gt;</code></td>
+<td style="text-align: left;">Attach metadata to commits.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git bundle</code></td>
+<td style="text-align: left;">Export repo to a single portable file.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git replace</code></td>
+<td style="text-align: left;">Temporarily substitute one commit for another.</td>
+</tr>
+</tbody>
+</table>
+<h2>Signs of Git Mastery</h2>
+<p>After you have put in loads of effort and concentrated practice for each of the sections above, you:</p>
+<ul>
+<li>Understand commits are immutable snapshots, not diffs.</li>
+<li>Can fix anything using reflog + reset + checkout.</li>
+<li>Know when to use merge vs rebase.</li>
+<li>Can keep history clean with interactive rebases.</li>
+</ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Core JS -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.waypoints.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>

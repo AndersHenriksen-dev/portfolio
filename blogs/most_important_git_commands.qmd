@@ -1,0 +1,207 @@
+---
+title: "A Practical Git Command Reference"
+author: "Anders Henriksen"
+date: 2025-10-09
+format: html
+---
+
+# A Practical Git Command Reference
+
+## Motivation
+Like many other skills in programming, truly understanding git requires messing up (intentionally or otherwise) and learning how to fix it. Even so, it can be useful to have a list of commands to reference every once in a while such that unknown commands can be added to ones' toolbelt. This is exactly the purpose of this blog.
+
+## The Foundation
+These commands are used every time a new git repository is used and often multiple times per day.
+
+Remember not to rebase public/shared branches because it rewrites history and makes you do `git push --force-with-lease` after the rebase.
+
+for `git add -p`, another option is to use the vscode source control. Choose a file with changes, hover over a hunk and click the plus to stage the hunk or the minus to revert the change. This is much easier to read than the command-line.
+
+| Command                          | What it Does                                                              |
+|:---------------------------------|:--------------------------------------------------------------------------|
+| `git config --global user.name`  | Set your git username.                                                    |
+| `git config --global user.email` | Set your git email address.                                               |
+| `git init`                       | Create a new local repository.                                            |
+| `git clone <url>`                | Copy a remote repository to your computer.                                |
+| `git status`                     | Show changes (staged, unstaged, untracked).                               |
+| `git status -s`                  | Show changes in a shorter format.                                         |
+| `git add .`                      | Add all files to the staging area.                                        |
+| `git add -p`                     | Interactive staging of hunks (parts of files).                            |
+| `git add <file>`                 | Stage file changes for commit.                                            |
+| `git commit -m "message"`        | Record a snapshot of staged changes.                                      |
+| `git fetch`                      | Download the changes from the remote server without adding them anywhere. |
+| `git pull`                       | Fetch + merge remote changes.                                             |
+| `git pull --rebase`              | Fetch + rebase instead of merge (cleaner).                                |
+| `git push`                       | Upload commits to remote.                                                 |
+| `git push --force-with-lease`    | Safely rewrite remote branch (after rebase).                              |
+| `git log`                        | View commit history.                                                      |
+| `git log --stat`                 | View commit history with number of changes per file.                      |
+| `git log -p`                     | View commit history in combination with diff.                             |
+| `git diff`                       | Compare working directory and index or commits.                           |
+| `git restore <file>`             | Modern alternative to checkout for files.                                 |
+| `git restore --staged <file>`    | Unstage a previously staged file.                                         |
+
+
+## Branching and Merging
+At the core of development teamwork is feature branches. Managing these branches requires many of the commands below, often a couple of times per week depending on the amount of features each developer is responsible for at the same time.
+
+| Command                                      | What it Does                               |
+|:---------------------------------------------|:-------------------------------------------|
+| `git branch`                                 | List local branches.                       |
+| `git branch -a`                              | List all branches, local and remote.       |
+| `git branch <name>`                          | Create a new branch.                       |
+| `git switch <branch>`                        | Switch branches.                           |
+| `git merge <branch>`                         | Merge another branch into the current one. |
+| `git log --oneline --graph --decorate --all` | Visualize branch structure.                |
+| `git merge --abort`                          | Cancel a merge in progress.                |
+
+
+## Rebase, Cherry-pick, and History Editing
+Inevitably, some branches end up too large, small bug-fixes are fixed on the wrong branches or too many messy checkpoint commits are created to make pulling possible or get started on new work. This leads to a non-transparent commit history, making each change unclear to developers and yourself in the future. When you catch these errors, the below commands are useful to clean and manipulate the commit history.
+
+Depending on how strict your team is about keeping the commit history clean, these commands can be used about once a week.
+Remember not to rebase public/shared branches because it rewrites history and makes you do `git push --force-with-lease` after the rebase.
+
+| Command                    | What it Does                                                     |
+|:---------------------------|:-----------------------------------------------------------------|
+| `git rebase <branch>`      | Replay commits from your branch on top of another.               |
+| `git rebase -i HEAD~N`     | Interactive rebase: reorder, squash and edit the last N commits. |
+| `git cherry-pick <hash>`   | Move a specific commit from elsewhere to your current location.  |
+| `git commit --amend`       | Modify the last commit.                                          |
+| `git reset --soft <hash>`  | Move HEAD but keep changes staged.                               |
+| `git reset --mixed <hash>` | Move HEAD and unstage changes.                                   |
+| `git reset --hard <hash>`  | Reset everything to a previous commit and remove the changes.    |
+
+The last three commands also work using the HEAD~N syntax.
+
+`git reset --hard` is dangerous and should not be used unless you are absolutely sure that you no longer need the commit in question. Please only use this  command if you are confident that you know how to use the reflog to get your commit back in case of errors.
+
+
+
+
+---
+
+## Recovery, Reflog, and Time Travel
+If you are great at using git and never make mistakes, these commands will never come in handy. Because everyone stumbles sometimes, knowing how to get your lost work back comes in handy fast.
+
+
+| Command                      | What it Does                                    |
+|:-----------------------------|:------------------------------------------------|
+| `git reflog`                 | Show all HEAD movements (your time machine).    |
+| `git log -g`                 | View reflog as a commit log.                    |
+| `git checkout <commit>`      | Inspect an old snapshot.                        |
+| `git branch <name> <commit>` | Create a branch from a lost commit.             |
+| `git revert <commit>`        | Create a new commit that undoes a previous one. |
+
+The contents of the reflog and its usefulness is a complicated topic and will not be dismantled in this blog.
+If you wish to learn more about the internals that make reflog a useful tool, read chapter 10 of the Pro Git book. It can be read for free from here: [Git Internals - Plumbing and Porcelain](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain).
+
+
+
+
+
+## Stashing, Tagging, and Ignoring
+Save, mark, and organize work efficiently. I personally find myself getting a lot of use out of stash, especially in messy codebases where the lines between commits, branches and temporary work that might come in handy later are super blurry.
+
+A stash is a last in, first out stack. Like stacking plates, the most recently added commit is put on the top and is the first to be picked up when removing a value from the stack.
+
+| Command                      | What it Does                                                      |
+|:-----------------------------|:------------------------------------------------------------------|
+| `git stash -m"message"`      | Temporarily save uncommitted changes.                             |
+| `git stash -u -m"message"`   | Temporarily save uncommitted changes (including untracked files). |
+| `git stash pop`              | Get the changes in the most recent stash and remove the entry.    |
+| `git stash apply`            | Get the changes in the most recent stash and keep the entry.      |
+| `git stash list`             | Show all stashes.                                                 |
+| `git tag <name>`             | Create a lightweight tag (like version v1.0).                     |
+| `git tag -a <name> -m "msg"` | Annotated tag with message.                                       |
+| `git push origin --tags`     | Push tags to remote.                                              |
+| `git rm --cached <file>`     | Stop tracking a file on git.                                      |
+
+
+
+## Inspection, Debugging, and Advanced Diffing
+These commands are added for completeness. They can be useful to get an overview of a project or changes made in specific commits, but vscode and other editors handle this info without the needs for the command themselves. Except for `git bisect` and potentially `git grep` You will probably not use these often.
+
+
+
+| Command                               | What it Does                                              |
+|:--------------------------------------|:----------------------------------------------------------|
+| `git bisect start`                    | Binary search to find the commit that introduced a bug.   |
+| `git bisect good`                     | Mark a commit in the binary search as not having the bug. |
+| `git bisect bad`                      | Mark a commit in the binary search as having the bug.     |
+| `git grep <pattern>`                  | Search for text in tracked files.                         |
+| `git blame <file>`                    | Show who last changed each line.                          |
+| `git show <commit>`                   | Display info and diff for a commit.                       |
+| `git diff <commit1> <commit2>`        | Compare two commits.                                      |
+| `git shortlog -sn`                    | Show commit counts by author.                             |
+| `git shortlog --author="Author Name"` | Show all messages from a certain author.                  |
+| `git rev-parse HEAD`                  | Get current commit hash.                                  |
+
+## GUI Equivalents
+If you use vscode, consider installing the [Git Blame Extension](https://marketplace.visualstudio.com/items?itemName=waderyan.gitblame) to show the inline git blame info. This replaces the `git blame <file>` command and even shows line-by-line changes.
+Using the Timeline drop-down at the bottom of the explorer window, you can compare multiple commits of a file to each other akin to the `git diff <commit1> <commit2>`.
+While I do love the `git grep <pattern>` command, it fulfills almost the exact same need as the `ctrl+shift+f` search tool in vscode (if most of the files in your project are tracked by git).
+
+
+<!-- # Plumbing Commands (Internal Git Power)
+Understand Git’s internals and low-level structure. Like the above section, you can likely go a full data science career without ever hearing of or using the se commands.
+
+
+
+| Command | What it Does |
+|:---------|:--------------|
+| `git cat-file -p <hash>` | Show content of a Git object. |
+| `git rev-list <branch>` | Show all commit hashes in a branch. |
+| `git ls-tree HEAD` | List files in a tree object (a commit). |
+| `git hash-object <file>` | Compute SHA-1 for an object. |
+| `git update-ref refs/heads/<branch> <hash>` | Manually move branch pointer. |
+| `git fsck --full` | Verify repo integrity. | -->
+
+
+
+## Git Wizardry
+Total mastery for rewriting, filtering, optimizing, scripting.
+
+
+
+| Command                                             | What it Does                                                   |
+|:----------------------------------------------------|:---------------------------------------------------------------|
+| `git filter-repo --path secrets.txt --invert-paths` | Rewrite entire repo history (e.g., remove secrets).            |
+| `git worktree add <dir> <branch>`                   | Make it possible to open each branch in a separate window.     |
+| `git submodule add <url> <path>`                    | Include another repo inside yours.                             |
+| `git subtree`                                       | Merge and split subprojects.                                   |
+| `git config --global alias.<name> "<cmd>"`          | Create custom Git shortcuts.                                   |
+| `git rerere`                                        | Remember merge conflict resolutions so you can use them again. |
+| `git notes add -m "info" <commit>`                  | Attach metadata to commits.                                    |
+| `git bundle`                                        | Export repo to a single portable file.                         |
+| `git replace`                                       | Temporarily substitute one commit for another.                 |
+
+
+
+## Signs of Git Mastery
+After you have put in loads of effort and concentrated practice for each of the sections above, you:
+
+- Understand commits are immutable snapshots, not diffs.
+- Can fix anything using reflog + reset + checkout.
+- Know when to use merge vs rebase.
+- Can keep history clean with interactive rebases.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
